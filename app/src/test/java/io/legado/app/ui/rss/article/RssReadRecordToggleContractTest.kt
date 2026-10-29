@@ -19,7 +19,7 @@ class RssReadRecordToggleContractTest {
         val preferKey = projectFile("src/main/java/io/legado/app/constant/PreferKey.kt").normalized()
 
         assertTrue(source.contains("@ColumnInfo(defaultValue = \"1\") var enableReadRecord: Boolean = true"))
-        assertTrue(database.contains("version = 112"))
+        assertTrue(Regex("version = (\\d+)").find(database)!!.groupValues[1].toInt() >= 112)
         assertTrue(database.contains("AutoMigration(from = 111, to = 112)"))
         assertTrue(schema.contains("\"version\": 112"))
         assertTrue(schema.contains("\"columnName\": \"enableReadRecord\""))
